@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { blue } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+import { AuthContext } from './contexts'
+
+import Home from './pages/Home'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: blue[700],
+      mainText: "white",
+      buttonColor: blue[600]
+    }
+  },
+});
 
 function App() {
+  const [authInfo, setAuthInfo] = useState({
+    authenticated: false,
+    user: "",
+    tokenInfo: {}
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <AuthContext.Provider value={{ authInfo, setAuthInfo }}>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Home} />
+          </Switch>
+        </Router>
+      </AuthContext.Provider>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
