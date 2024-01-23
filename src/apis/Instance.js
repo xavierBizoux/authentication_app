@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Instance = axios.create({
-    baseURL: "https://gelenv-lts.pdcesx11145.race.sas.com",
+    baseURL: "https://server.demo.sas.com",
     headers: {}
 });
 
